@@ -4,18 +4,43 @@
 
 #include "Board.h"
 #include "Apple.h"
+#include "Controller.h"
+#include "Snake.h"
+
 #include "iostream"
 using std::cout;
 
-int main() {
-    Board* b = new Board();
+#include "Windows.h"
+#include <conio.h>
 
-    while (true) {
+
+
+int main() {
+    Controller* c = new Controller();
+    Board* b = new Board();
+    bool gameOver = false;
+
+
+    while (!gameOver) {
         cout << *b;
-        b->apple->getCoordinate()->setCoordinates(b->apple->getCoordinate()->getX()+1, b->apple->getCoordinate()->getY());
-        //Cant clear screen in CLION
-        system("CLS");
+        c->readInput(b->snake);
+        b->snake->move();
+
+        if (b->snake->isEating(*b->apple->getCoordinate())) {
+            b->apple->generateNewFood();
+            b->snake->grow();
+        }
+
+        if (b->snake->hasCollided()) {
+            gameOver = true;
+        }
+
+        SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), { 0,0 });
+        Sleep(100);
     }
+
+    system("CLS");
+    std::cout << "Thanks for playing :)))" << std::endl;
 
 
     return 0;

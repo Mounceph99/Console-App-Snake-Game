@@ -6,16 +6,18 @@
 #define CONSOLE_APP_SNAKE_GAME_SNAKE_H
 
 #include "Board.h"
+
 #include <iostream>
 using std::ostream;
 
-
+class Apple;
 
 enum Direction {
-    UP = 0,
-    DOWN = 1,
-    LEFT = 2,
-    RIGHT = 3
+    NONE,
+    UP,
+    DOWN,
+    LEFT,
+    RIGHT,
 };
 
 class Unit {
@@ -54,6 +56,10 @@ class Snake {
 
         void setDirection(Direction dir) {this->dir = dir;};
         void move();
+        Unit* getHead() { return this->head; };
+        bool isEating(Coordinate& food);
+        void grow();
+        bool hasCollided();
 };
 
 

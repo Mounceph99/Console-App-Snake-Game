@@ -3,6 +3,9 @@
 //
 
 #include "Controller.h"
+#include "Snake.h"
+
+#include <conio.h>
 
 Controller::Controller() {
 }
@@ -24,4 +27,15 @@ Controller& Controller::operator=(const Controller &controller) {
 
 ostream& operator<<(ostream& output, const Controller& controller) {
     return output;
+}
+
+void Controller::readInput(Snake* snake) {
+    if (kbhit()) {
+        switch (getch()) {
+            case 'w': snake->setDirection(UP); break;
+           case 's': snake->setDirection(DOWN); break;
+            case 'a': snake->setDirection(LEFT); break;
+            case 'd': snake->setDirection(RIGHT); break;
+        }
+    }
 }

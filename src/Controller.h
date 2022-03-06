@@ -8,14 +8,18 @@
 #include <iostream>
 using std::ostream;
 
+class Snake;
+
 class Controller {
     public:
         Controller();
-        Controller(const Controller& unit);
+        Controller(const Controller& controller);
         ~Controller();
 
-        Controller& operator=(const Controller& unit);
-        friend ostream& operator<<(ostream& output, const Controller& unit);
+        Controller& operator=(const Controller& controller);
+        friend ostream& operator<<(ostream& output, const Controller& controller);
+
+        void readInput(Snake* snake);
 };
 
 

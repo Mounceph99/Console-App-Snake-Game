@@ -34,3 +34,5 @@
 # Other
 .idea
 cmake-build-debug
+.vs
+out

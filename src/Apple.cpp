@@ -12,9 +12,8 @@ using std::srand;
 #include <time.h>
 
 Apple::Apple() {
-    srand(time(NULL));
     this->coor = new Coordinate();
-    this->coor->setCoordinates(rand() % (HORIZONTAL_LENGTH-2) + 1, rand() % (VERTICAL_LENGTH-2) + 1)  ;
+    this->generateNewFood();
 }
 
 Apple::Apple(const Apple& apple) {
@@ -41,4 +40,9 @@ Apple& Apple::operator=(const Apple &apple) {
 ostream& operator<<(ostream& output, const Apple& apple) {
     output << '@';
     return output;
+}
+
+void Apple::generateNewFood() {
+    srand(time(NULL));
+    this->coor->setCoordinates(rand() % (HORIZONTAL_LENGTH - 2) + 1, rand() % (VERTICAL_LENGTH - 2) + 1);
 }

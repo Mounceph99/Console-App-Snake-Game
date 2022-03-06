@@ -51,8 +51,11 @@ ostream& operator<<(ostream& output, const Board& board) {
             //Print upper and lower bound of board
             if (row == 0 || row == VERTICAL_LENGTH-1) {
                 output << '-';
-            } else if (column == board.apple->getCoordinate()->getX() && row == board.apple->getCoordinate()->getY()) {
-                output << '@';
+            } else if (column == board.snake->getHead()->getCoordinate()->getX() && row == board.snake->getHead()->getCoordinate()->getY()) {
+                output << *board.snake;
+            }
+            else if (column == board.apple->getCoordinate()->getX() && row == board.apple->getCoordinate()->getY()) {
+                output << *board.apple;
             }
             else {
                     output << ' ';
@@ -67,7 +70,7 @@ ostream& operator<<(ostream& output, const Board& board) {
     return output;
 }
 
-Coordinate::Coordinate(): x_pos(0), y_pos(0) {}
+Coordinate::Coordinate(): x_pos(HORIZONTAL_LENGTH/2), y_pos(VERTICAL_LENGTH/2) {}
 
 Coordinate::Coordinate(int x, int y): x_pos(x), y_pos(y) {}
 

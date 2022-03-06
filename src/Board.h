@@ -14,6 +14,8 @@ class Apple;
 const int HORIZONTAL_LENGTH = 50;
 const int VERTICAL_LENGTH = 15;
 
+const int IGNORE_INT = -976321;
+
 
 class Board {
 
@@ -50,11 +52,11 @@ public:
 
     void setCoordinates(int x, int y) {
 
-        if (x != NULL) {
+        if (x != IGNORE_INT) {
             this->x_pos = x;
         }
 
-        if (y != NULL) {
+        if (y != IGNORE_INT) {
             this->y_pos = y;
         }
 

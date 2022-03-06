@@ -3,6 +3,7 @@
 //
 
 #include "Snake.h"
+#include "Apple.h"
 
 Unit::Unit(): coor(new Coordinate()), prev(NULL), next(NULL) {}
 
@@ -37,7 +38,7 @@ ostream& operator<<(ostream& output, const Unit& u) {
     return output;
 }
 
-Snake::Snake(): head(new Unit()), size(1), speed(1), dir(UP) {}
+Snake::Snake(): head(new Unit()), size(1), speed(1), dir(NONE) {}
 
 Snake::Snake(const Snake& snake): head(snake.head), size(snake.size), speed(snake.speed), dir(snake.dir) {}
 
@@ -68,19 +69,45 @@ ostream& operator<<(ostream& output, const Snake& snake) {
     return output;
 }
 
-void Snake::move() {
+void Snake::move() {  
     switch(dir) {
         case UP:
-            this->head->getCoordinate()->setCoordinates(NULL, this->head->getCoordinate()->getY()-speed);
+            this->head->getCoordinate()->setCoordinates(IGNORE_INT, this->head->getCoordinate()->getY()-speed);
             break;
         case DOWN:
-            this->head->getCoordinate()->setCoordinates(NULL, this->head->getCoordinate()->getY()+speed);
+            this->head->getCoordinate()->setCoordinates(IGNORE_INT, this->head->getCoordinate()->getY()+speed);
             break;
         case LEFT:
-            this->head->getCoordinate()->setCoordinates(this->head->getCoordinate()->getX()-speed, NULL);
+            this->head->getCoordinate()->setCoordinates(this->head->getCoordinate()->getX()-speed, IGNORE_INT);
             break;
         case RIGHT:
-            this->head->getCoordinate()->setCoordinates(this->head->getCoordinate()->getX()+speed, NULL);
+            this->head->getCoordinate()->setCoordinates(this->head->getCoordinate()->getX()+speed, IGNORE_INT);
             break;
     }
+}
+
+bool Snake::isEating(Coordinate& food) {
+    
+    if (this->head->getCoordinate()->getX() == food.getX() &&
+        this->head->getCoordinate()->getY() == food.getY()) {
+        return true;
+    }
+
+    return false;
+}
+
+void Snake::grow() {
+    this->size++;
+}
+
+bool Snake::hasCollided() {
+
+    if (this->head->getCoordinate()->getX() < 0 || 
+        this->head->getCoordinate()->getX() > (HORIZONTAL_LENGTH-1) ||
+        this->head->getCoordinate()->getY() < 1 ||
+        this->head->getCoordinate()->getY() > (VERTICAL_LENGTH-2)) {
+        return true;
+    }
+
+    return false;
 }

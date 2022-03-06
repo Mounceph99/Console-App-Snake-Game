@@ -23,6 +23,7 @@ class Apple  {
         friend ostream& operator<<(ostream& output, const Apple& apple);
 
         Coordinate* getCoordinate() {return coor;};
+        void generateNewFood();
 };
 
 
