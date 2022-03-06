@@ -23,7 +23,6 @@ Apple::Apple(const Apple& apple) {
 Apple::~Apple() {
     delete this->coor;
     this->coor = nullptr;
-
 }
 
 Apple& Apple::operator=(const Apple &apple) {

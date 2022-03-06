@@ -9,6 +9,7 @@
 using std::ostream;
 
 class Snake;
+class Board;
 
 class Controller {
     public:
@@ -19,7 +20,7 @@ class Controller {
         Controller& operator=(const Controller& controller);
         friend ostream& operator<<(ostream& output, const Controller& controller);
 
-        void readInput(Snake* snake);
+        void readInput(Board* board);
 };
 
 

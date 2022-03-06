@@ -11,18 +11,33 @@ Unit::Unit(Coordinate* coor): prev(NULL), next(NULL) {
     this->coor = new Coordinate(*coor);
 }
 
-Unit::Unit(const Unit& u): prev(u.prev), next(u.next){
+Unit::Unit(const Unit& u) {
     this->coor = new Coordinate(*u.coor);
+
+    if (u.prev != nullptr) {
+        this->prev = new Unit(u.prev->getCoordinate());
+    }
+    else {
+        this->prev = nullptr;
+    }
+
+    if (u.next != nullptr) {
+        this->next = new Unit(u.next->getCoordinate());
+    }
+    else {
+        this->next = nullptr;
+    }
 }
 
 Unit::~Unit() {
     delete this->coor;
+
+    //Will call destructors recursively
     delete this->prev;
     delete this->next;
 
     this->coor = nullptr;
-    this->prev = nullptr;
-    this->next = nullptr;
+    this->prev = this->next = nullptr;
 }
 
 Unit& Unit::operator=(const Unit &u) {
@@ -45,26 +60,17 @@ ostream& operator<<(ostream& output, const Unit& u) {
 
 Snake::Snake(): head(new Unit()), end(this->head), size(1), speed(1), dir(NONE) {}
 
-Snake::Snake(const Snake& snake): head(snake.head), end(snake.end), size(snake.size), speed(snake.speed), dir(snake.dir) {}
+Snake::Snake(const Snake& snake): size(snake.size), speed(snake.speed), dir(snake.dir) {
+    this->head = new Unit(*snake.head);
+    this->end = new Unit(*snake.end);
+}
 
 Snake::~Snake() {
-    //TODO: Will likely have to delete the tail
-    std::cout << "Snake destructor";
-    if (this->head == this->end) {
-        delete this->head;
-        this->head = nullptr;
 
-        this->end = nullptr;
-    }
-    else {
-        delete this->head;
-        this->head = nullptr;
+    delete this->head;
+    delete this->end;
 
-        delete this->end;
-        this->end = nullptr;
-    }
-
-    
+    this->head = this->end = nullptr;
 }
 
 Snake& Snake::operator=(const Snake &snake) {
@@ -73,11 +79,21 @@ Snake& Snake::operator=(const Snake &snake) {
         return *this;
     }
 
-    //TODO: Will likely have to copy the tail
     this->head = new Unit(*snake.head);
 
+    if (snake.size == 1) {
+        this->end = this->head;
+    }
+    else {
+        Unit* temp = this->head;
 
-    this->end = new Unit(*snake.end);
+        while (temp != nullptr && temp->getPrev() != nullptr) {
+            temp = temp->getPrev();
+        }
+
+        this->end = temp;
+    }
+    
 
     this->size = snake.size;
     this->speed = snake.speed;
@@ -155,11 +171,8 @@ bool Snake::hasCollided() {
 }
 
 void Snake::addUnitToBody() {
-
     Unit* newEnd = new Unit(this->end->getCoordinate());
-
     this->end->setPrev(newEnd);
     newEnd->setNext(end);
-
     this->end = newEnd;
 }

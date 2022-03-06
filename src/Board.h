@@ -18,12 +18,11 @@ const int IGNORE_INT = -976321;
 
 
 class Board {
-
+    private:
+        Snake* snake;
+        Apple* apple;
+    
     public:
-
-    Snake* snake;
-    Apple* apple;
-
         Board();
         Board(const Board& board);
         ~Board();
@@ -31,6 +30,8 @@ class Board {
         Board& operator=(const Board& board);
         friend ostream& operator<<(ostream& output, const Board& board);
 
+        Snake* getSnake() { return this->snake; };
+        Apple* getApple() { return this->apple; };
 };
 
 class Coordinate {

@@ -20,16 +20,16 @@ int main() {
 
     while (!gameOver) {
         cout << *b;
-        c->readInput(b->snake);
-        b->snake->move();
+        c->readInput(b);
+        b->getSnake()->move();
 
-        if (b->snake->hasCollided()) {
+        if (b->getSnake()->hasCollided()) {
             gameOver = true;
         }
 
-        if (b->snake->isEating(*b->apple->getCoordinate())) {
-            b->apple->generateNewFood();
-            b->snake->grow();
+        if (b->getSnake()->isEating(*b->getApple()->getCoordinate())) {
+            b->getApple()->generateNewFood();
+            b->getSnake()->grow();
         }
 
         SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), { 0,0 });

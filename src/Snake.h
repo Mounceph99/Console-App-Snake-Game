@@ -66,6 +66,7 @@ class Snake {
         void setDirection(Direction dir) {this->dir = dir;};
         void move();
         Unit* getHead() { return this->head; };
+        int getSize() { return this->size; };
         bool isEating(Coordinate& food);
         void grow();
         bool hasCollided();
