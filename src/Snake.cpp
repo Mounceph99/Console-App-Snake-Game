@@ -39,7 +39,7 @@ Unit& Unit::operator=(const Unit &u) {
 }
 
 ostream& operator<<(ostream& output, const Unit& u) {
-    output << '0';
+    output << 'o';
     return output;
 }
 
@@ -87,19 +87,21 @@ Snake& Snake::operator=(const Snake &snake) {
 }
 
 ostream& operator<<(ostream& output, const Snake& snake) {
-    output << 'X';
+    //This is the head of the snake.
+    output << 'O';
     return output;
 }
 
 void Snake::move() {
 
+    //Move every unit other than head. Each unit should move to where the next unit is located.
     Unit* temp = this->end;
-
     while (temp != nullptr && temp != this->head) {
         temp->getCoordinate()->setCoordinates(temp->getNext()->getCoordinate()->getX(), temp->getNext()->getCoordinate()->getY());
         temp = temp->getNext();
     }
 
+    //Move the head
     switch(dir) {
         case UP:
             this->head->getCoordinate()->setCoordinates(IGNORE_INT, this->head->getCoordinate()->getY()-speed);
@@ -117,22 +119,18 @@ void Snake::move() {
 }
 
 bool Snake::isEating(Coordinate& food) {
-    
-    if (this->head->getCoordinate()->getX() == food.getX() &&
-        this->head->getCoordinate()->getY() == food.getY()) {
-        return true;
-    }
-
-    return false;
+    return this->head->getCoordinate()->getX() == food.getX() &&
+           this->head->getCoordinate()->getY() == food.getY();
 }
 
 void Snake::grow() {
     this->size++;
-    this->updateBody();
+    this->addUnitToBody();
 }
 
 bool Snake::hasCollided() {
 
+    //Wall collsions
     if (this->head->getCoordinate()->getX() < 0 || 
         this->head->getCoordinate()->getX() > (HORIZONTAL_LENGTH-1) ||
         this->head->getCoordinate()->getY() < 1 ||
@@ -140,6 +138,8 @@ bool Snake::hasCollided() {
         return true;
     }
 
+
+    //Check collision on the snake's body
     Unit* temp = this->head->getPrev();
 
     while (temp != nullptr) {
@@ -154,7 +154,7 @@ bool Snake::hasCollided() {
     return false;
 }
 
-void Snake::updateBody() {
+void Snake::addUnitToBody() {
 
     Unit* newEnd = new Unit(this->end->getCoordinate());
 
@@ -162,19 +162,4 @@ void Snake::updateBody() {
     newEnd->setNext(end);
 
     this->end = newEnd;
-}
-
-void printSnake(Snake& s) {
-
-    Unit* temp = s.getHead();
-
-    std::cout << '[' << *temp->getCoordinate() << "] ";
-
-    temp = temp->getPrev();
-
-    while (temp != nullptr) {
-        std::cout << '(' << *temp->getCoordinate() << ") ";
-
-        temp = temp->getPrev();
-    }
 }

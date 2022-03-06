@@ -11,9 +11,6 @@
 using std::cout;
 
 #include "Windows.h"
-#include <conio.h>
-
-void printSnake(Snake& s);
 
 int main() {
     Controller* c = new Controller();
@@ -35,20 +32,11 @@ int main() {
             b->snake->grow();
         }
 
-        
-
-        std::cout << *b->snake->getHead()->getCoordinate() << std::endl;
-        printSnake(*b->snake);
-
         SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), { 0,0 });
 
 
-        Sleep(100);
+        Sleep(50);
     }
-
-    system("CLS");
-    std::cout << "Thanks for playing :)))" << std::endl;
-
 
     return 0;
 }

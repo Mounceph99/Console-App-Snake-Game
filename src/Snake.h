@@ -69,6 +69,7 @@ class Snake {
         bool isEating(Coordinate& food);
         void grow();
         bool hasCollided();
+        void addUnitToBody();
 };
 
 
