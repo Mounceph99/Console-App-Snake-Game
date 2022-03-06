@@ -30,11 +30,17 @@ Unit::Unit(const Unit& u) {
 }
 
 Unit::~Unit() {
-    delete this->coor;
 
     //Will call destructors recursively
-    delete this->prev;
-    delete this->next;
+    if (this->prev != nullptr) {
+        delete this->next;
+    }
+
+    if (this->next != nullptr) {
+        delete this->prev;
+    }
+
+    delete this->coor;
 
     this->coor = nullptr;
     this->prev = this->next = nullptr;

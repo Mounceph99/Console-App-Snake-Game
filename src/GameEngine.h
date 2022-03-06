@@ -5,7 +5,6 @@
 #ifndef CONSOLE_APP_SNAKE_GAME_GAMEENGINE_H
 #define CONSOLE_APP_SNAKE_GAME_GAMEENGINE_H
 
-#include "Windows.h"
 #include <iostream>
 using std::ostream;
 
@@ -16,6 +15,8 @@ class GameEngine {
 private:
     Board* board;
     Controller* controller;
+    int score;
+    int refreshRate;
 
 public:
     GameEngine();
@@ -25,11 +26,15 @@ public:
     GameEngine& operator=(const GameEngine& ge);
     friend ostream& operator<<(ostream& output, const GameEngine& ge);
 
-    void clearScreen() {
-        SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), { 0,0 });
-    };
-
+    void refresh();
     void play();
+
+    int getScore() { return this->score; };
+    int getRefreshRate() { return this->refreshRate; };
+
+    void incrementScore();
+    void increaseRefreshRate();
+    void partingScreen();
 };
 
 
