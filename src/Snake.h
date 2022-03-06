@@ -5,12 +5,11 @@
 #ifndef CONSOLE_APP_SNAKE_GAME_SNAKE_H
 #define CONSOLE_APP_SNAKE_GAME_SNAKE_H
 
-#include "Board.h"
-
 #include <iostream>
 using std::ostream;
 
 class Apple;
+class Coordinate;
 
 enum Direction {
     NONE,

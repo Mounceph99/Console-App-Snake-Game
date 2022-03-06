@@ -4,6 +4,7 @@
 
 #include "Snake.h"
 #include "Apple.h"
+#include "Board.h"
 
 #include "Windows.h"
 

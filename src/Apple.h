@@ -5,10 +5,10 @@
 #ifndef CONSOLE_APP_SNAKE_GAME_APPLE_H
 #define CONSOLE_APP_SNAKE_GAME_APPLE_H
 
-#include "Board.h"
-
 #include <iostream>
 using std::ostream;
+
+class Coordinate;
 
 class Apple  {
     private:

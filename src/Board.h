@@ -13,9 +13,7 @@ class Apple;
 
 const int HORIZONTAL_LENGTH = 50;
 const int VERTICAL_LENGTH = 15;
-
 const int IGNORE_INT = -976321;
-
 
 class Board {
     private:
@@ -63,8 +61,5 @@ public:
 
     };
 };
-
-
-
 
 #endif //CONSOLE_APP_SNAKE_GAME_BOARD_H

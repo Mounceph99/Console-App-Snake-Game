@@ -6,11 +6,10 @@
 #include "Board.h"
 
 #include "Windows.h"
+#include <time.h>
 #include <stdlib.h>
 using std::rand;
 using std::srand;
-
-#include <time.h>
 
 Apple::Apple() {
     this->coor = new Coordinate();
