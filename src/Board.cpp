@@ -51,8 +51,11 @@ ostream& operator<<(ostream& output, const Board& board) {
             //Print upper and lower bound of board
             if (row == 0 || row == VERTICAL_LENGTH-1) {
                 output << '-';
-            } else {
-                output << ' ';
+            } else if (column == board.apple->getCoordinate()->getX() && row == board.apple->getCoordinate()->getY()) {
+                output << '@';
+            }
+            else {
+                    output << ' ';
             }
 
         }
@@ -61,5 +64,30 @@ ostream& operator<<(ostream& output, const Board& board) {
         output << '|' << endl;
 
     }
+    return output;
+}
+
+Coordinate::Coordinate(): x_pos(0), y_pos(0) {}
+
+Coordinate::Coordinate(int x, int y): x_pos(x), y_pos(y) {}
+
+Coordinate::Coordinate(const Coordinate& coor): x_pos(coor.x_pos), y_pos(coor.y_pos) {}
+
+Coordinate::~Coordinate() {}
+
+Coordinate& Coordinate::operator=(const Coordinate &coor) {
+
+    if (this == &coor) {
+        return *this;
+    }
+
+    this->x_pos = coor.x_pos;
+    this->y_pos = coor.y_pos;
+
+    return *this;
+}
+
+ostream& operator<<(ostream& output, const Coordinate& coor) {
+    output << '(' << coor.x_pos << ", " << coor.y_pos << ')';
     return output;
 }
