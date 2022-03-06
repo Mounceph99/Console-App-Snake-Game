@@ -36,15 +36,24 @@ public:
     friend ostream& operator<<(ostream& output, const Unit& unit);
 
     Coordinate* getCoordinate() {return coor;};
+    void setPrev(Unit* newPrev) { this->prev = newPrev; };
+    void setNext(Unit* newNext) { this->next = newNext; };
+    
+    Unit* getPrev() { return this->prev;};
+    Unit* getNext() { return this->next;};
+
 
 };
 
 class Snake {
     private:
         Unit* head;
+        Unit* end;
         int size;
         int speed;
         Direction dir;
+
+        void updateBody();
 
     public:
         Snake();

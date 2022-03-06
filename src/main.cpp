@@ -13,7 +13,7 @@ using std::cout;
 #include "Windows.h"
 #include <conio.h>
 
-
+void printSnake(Snake& s);
 
 int main() {
     Controller* c = new Controller();
@@ -26,16 +26,23 @@ int main() {
         c->readInput(b->snake);
         b->snake->move();
 
+        if (b->snake->hasCollided()) {
+            gameOver = true;
+        }
+
         if (b->snake->isEating(*b->apple->getCoordinate())) {
             b->apple->generateNewFood();
             b->snake->grow();
         }
 
-        if (b->snake->hasCollided()) {
-            gameOver = true;
-        }
+        
+
+        std::cout << *b->snake->getHead()->getCoordinate() << std::endl;
+        printSnake(*b->snake);
 
         SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), { 0,0 });
+
+
         Sleep(100);
     }
 

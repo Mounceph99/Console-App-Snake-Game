@@ -58,7 +58,28 @@ ostream& operator<<(ostream& output, const Board& board) {
                 output << *board.apple;
             }
             else {
+
+                bool printBody = false;             
+
+                Unit* temp = board.snake->getHead()->getPrev();
+
+                while (temp != nullptr) {
+
+                    if (temp->getCoordinate()->getX() == column &&
+                        temp->getCoordinate()->getY() == row) {
+                        
+                        output << *temp;
+                        printBody = true;
+                        break;
+                    }
+
+                    temp = temp->getPrev();
+
+                }
+
+                if (!printBody) {
                     output << ' ';
+                }                 
             }
 
         }
