@@ -5,6 +5,7 @@
 #include "Apple.h"
 #include "Board.h"
 
+#include "Windows.h"
 #include <stdlib.h>
 using std::rand;
 using std::srand;
@@ -37,7 +38,9 @@ Apple& Apple::operator=(const Apple &apple) {
 }
 
 ostream& operator<<(ostream& output, const Apple& apple) {
+    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 12);
     output << '@';
+    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
     return output;
 }
 

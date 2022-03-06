@@ -5,6 +5,8 @@
 #include "Snake.h"
 #include "Apple.h"
 
+#include "Windows.h"
+
 Unit::Unit(): coor(new Coordinate()), prev(NULL), next(NULL) {}
 
 Unit::Unit(Coordinate* coor): prev(NULL), next(NULL) {
@@ -60,7 +62,9 @@ Unit& Unit::operator=(const Unit &u) {
 }
 
 ostream& operator<<(ostream& output, const Unit& u) {
+    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 10);
     output << 'o';
+    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
     return output;
 }
 
@@ -110,7 +114,9 @@ Snake& Snake::operator=(const Snake &snake) {
 
 ostream& operator<<(ostream& output, const Snake& snake) {
     //This is the head of the snake.
+    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 10);
     output << 'O';
+    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
     return output;
 }
 
